@@ -3,13 +3,18 @@ import React, { useState } from "react";
 import Title from "../components/Title";
 import InputField from "../components/InputField";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { update } from "../Redux/FormData";
 
 const SkillsAndQualifications = () => {
   const [inputValue, setInputValue] = useState("");
   const [items, setItems] = useState([]);
+  const [formData, setFormData] = useState({
+    
+  });
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   let arr = [];
 
   // Handler for adding the item
@@ -31,6 +36,12 @@ const SkillsAndQualifications = () => {
     setInputValue(e.target.value);
   };
 
+  const handelForm = (e) => {
+    const { name, value } = e?.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    console.log(e.target.name, e.target.value);
+  };
+
   return (
     <>
       <div className="d-flex justify-content-center align-items-center h100 w100">
@@ -49,7 +60,7 @@ const SkillsAndQualifications = () => {
                   InputPlaceholder="Add Skill"
                   value={inputValue}
                   InputClassName={"me-3 "}
-                  onChange={(e) => InputValues(e)}
+                  onChange={(e) => {InputValues(e); handelForm(e)}}
                 />
 
                 <Button
@@ -84,7 +95,9 @@ const SkillsAndQualifications = () => {
                   type={"button"}
                   ButtonName={"Next"}
                   ButtonClassName={"btn-primary"}
-                  onClick={() => navigate("/AdditionalInformation")}
+                  onClick={() => {navigate("/AdditionalInformation");
+                    dispatch(update(items))
+                  }}
                 />
               </div>
             </form>

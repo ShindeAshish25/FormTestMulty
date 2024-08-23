@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
 import { useNavigate } from "react-router-dom";
+import { update } from "../Redux/FormData";
+import { useDispatch } from "react-redux";
 
 const Education = () => {
+  const [formData, setFormData] = useState({
+    sccBoard: "",
+    sccCGPA: "",
+    sccPassingYear: "",
+    hscBoard: "",
+    hscCGPA: "",
+    hscPassingYear: "",
+    graduationBoard: "",
+    graduationCGPA: "",
+    graduationPassingYear: "",
+    postGraduationBoard: "",
+    postGraduationCGPA: "",
+    postGraduationPassingYear: "",
+  });
   const navigate = useNavigate();
+  
+  const dispatch = useDispatch();
+
+  const handelForm = (e) => {
+    const { name, value } = e?.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    console.log(e.target.name, e.target.value);
+  };
+  console.log(formData);
+
+
   return (
     <div className="d-flex justify-content-center align-items-center h100 w100">
-      <div className="card w-50 mb-3">
+      <div className="card w-50 mb-3 shadow">
         <div className="card-body p-4">
           <h4 className="card-title">
             <Title
@@ -32,109 +59,118 @@ const Education = () => {
                   <td className="d-flax align-item-center">
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"sccBoard"}
+                      InputName={"sccBoard"}
+                      InputPlaceholder={"Enter Board/University"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                   <td>
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"sccCGPA"}
+                      InputName={"sccCGPA"}
+                      InputPlaceholder={"Enter CGPA"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                   <td>
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"sccPassingYear"}
+                      InputName={"sccPassingYear"}
+                      InputPlaceholder={"Enter Passing year"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>HSC</td>
-                  <td>
-                    {" "}
+                  <td className="d-flax align-item-center">
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"hscBoard"}
+                      InputName={"hscBoard"}
+                      InputPlaceholder={"Enter Board/University"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                   <td>
-                    {" "}
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"hscCGPA"}
+                      InputName={"hscCGPA"}
+                      InputPlaceholder={"Enter CGPA"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                   <td>
-                    {" "}
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"hscPassingYear"}
+                      InputName={"hscPassingYear"}
+                      InputPlaceholder={"Enter Passing year"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>Graduation</td>
-                  <td>
+                  <td className="d-flax align-item-center">
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"graduationBoard"}
+                      InputName={"graduationBoard"}
+                      InputPlaceholder={"Enter Board/University"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                   <td>
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"graduationCGPA"}
+                      InputName={"graduationCGPA"}
+                      InputPlaceholder={"Enter CGPA"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                   <td>
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"graduationPassingYear"}
+                      InputName={"graduationPassingYear"}
+                      InputPlaceholder={"Enter Passing year"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                 </tr>
                 <tr>
                   <td>Post Graduation</td>
-                  <td>
+                  <td className="d-flax align-item-center">
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"postGraduationBoard"}
+                      InputName={"postGraduationBoard"}
+                      InputPlaceholder={"Enter Board/University"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                   <td>
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"postGraduationCGPA"}
+                      InputName={"postGraduationCGPA"}
+                      InputPlaceholder={"Enter CGPA"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                   <td>
                     <InputField
                       InputType={"text"}
-                      InputId={"name"}
-                      InputName={"name"}
-                      InputPlaceholder={"Enter Name"}
+                      InputId={"postGraduationPassingYear"}
+                      InputName={"postGraduationPassingYear"}
+                      InputPlaceholder={"Enter Passing year"}
+                      onChange={(e) => handelForm(e)}
                     />
                   </td>
                 </tr>
@@ -152,7 +188,10 @@ const Education = () => {
                 type={"button"}
                 ButtonName={"Next"}
                 ButtonClassName={"btn-primary"}
-                onClick={() => navigate("/WorkExperience")}
+                onClick={() => {
+                  navigate("/WorkExperience");
+                  dispatch(update(formData));
+                }}
               />
             </div>
           </form>

@@ -25,7 +25,7 @@ const PersonalInformation = () => {
   console.log(formData);
   return (
     <div className="d-flex justify-content-center align-items-center h100 w100">
-      <div className="card w-50 mb-3">
+      <div className="card w-50 mb-3 shadow">
         <div className="card-body p-4">
           <h4 className="card-title">
             <Title
