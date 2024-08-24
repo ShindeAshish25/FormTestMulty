@@ -181,7 +181,7 @@ const AdditionalInformation = () => {
                 type={"button"}
                 ButtonName={"Next"}
                 ButtonClassName={"btn-primary"}
-                // onClick={() => navigate("/WorkExperience")}
+                onClick={() => navigate("/Review")}
               />
             </div>
           </div>

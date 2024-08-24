@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import WorkExperience from "./pages/WorkExperience";
 import SkillsAndQualifications from "./pages/SkillsAndQualifications";
 import AdditionalInformation from "./pages/AdditionalInformation";
+import Review from "./pages/Review";
 
 export const Routing = () => {
   return (
@@ -22,6 +23,10 @@ export const Routing = () => {
           <Route
             path="/AdditionalInformation"
             element={<AdditionalInformation />}
+          />
+          <Route
+            path="/Review"
+            element={<Review />}
           />
         </Routes>
       </BrowserRouter>
