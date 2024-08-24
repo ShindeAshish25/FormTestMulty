@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
 import { useNavigate } from "react-router-dom";
 import { update } from "../Redux/FormData";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Education = () => {
-  const oldData = useSelector((state) => state.counter.value)
-  console.log("oldData", oldData);
-  const [isFormComplete, setIsFormComplete] = useState(false);
   const [formData, setFormData] = useState({
     sccBoard: "",
     sccCGPA: "",
@@ -30,15 +27,9 @@ const Education = () => {
 
   const handelForm = (e) => {
     const { name, value } = e?.target;
-    setFormData((prev) => ({ ...oldData, ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
     console.log(e.target.name, e.target.value);
   };
-
-  useEffect(() => { 
-    const { sccBoard, sccCGPA, sccPassingYear, hscBoard, hscCGPA,hscPassingYear,graduationBoard, graduationCGPA,graduationPassingYear,postGraduationBoard, postGraduationCGPA, postGraduationPassingYear} = formData;
-    setIsFormComplete(sccBoard && sccCGPA && sccPassingYear && hscBoard && hscCGPA && hscPassingYear && graduationBoard && graduationCGPA && graduationPassingYear && postGraduationBoard && postGraduationCGPA && postGraduationPassingYear);
-  }, [formData]);
-
   console.log(formData);
 
 
@@ -49,7 +40,7 @@ const Education = () => {
           <h4 className="card-title">
             <Title
               TitleName={"Education Information"}
-              Titleclass={"text-center text-danger mb-4"}
+              Titleclass={"text-center"}
             />
           </h4>
           <form action="">
@@ -197,10 +188,9 @@ const Education = () => {
                 type={"button"}
                 ButtonName={"Next"}
                 ButtonClassName={"btn-primary"}
-                disabled={!isFormComplete} 
                 onClick={() => {
                   navigate("/WorkExperience");
-                  dispatch(update(formData)); 
+                  dispatch(update(formData));
                 }}
               />
             </div>

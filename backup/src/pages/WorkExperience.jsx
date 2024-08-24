@@ -1,33 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { update } from "../Redux/FormData";
 
 const WorkExperience = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const oldData = useSelector((state) => state.counter.value)
-  console.log("oldData", oldData);
-  const [isFormComplete, setIsFormComplete] = useState(false);
+
   // Initialize form data for the first row
   const [rows, setRows] = useState([
     { companyName: "", jobTitle: "", duration: "", id: 1 },
   ]);
 
   // Initialize form data with one entry for the first row
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    companyName1: "",
+    jobTitle1: "",
+    duration1: "",
+  });
 
-  useEffect(() => {
-    setFormData(oldData);
-  }, [oldData]);
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    console.log([name], "=", value);
-
-    setFormData((prev) => ({ ...oldData, ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const addRow = () => {
@@ -70,20 +67,14 @@ const WorkExperience = () => {
     );
     handleFormChange({ target: { name: `${field}${id}`, value } });
   };
- 
-
-  useEffect(() => { 
-    const { companyName, jobTitle, duration,companyName1, jobTitle1, duration1} = formData;
-    setIsFormComplete(companyName && jobTitle && duration && companyName1 && jobTitle1 && duration1);
-  }, [formData]);
 
   return (
     <div>
       <div className="d-flex justify-content-center align-items-center h100 w100">
-        <div className="card w-50 mb-3 shadow">
+        <div className="card w-50 mb-3">
           <div className="card-body p-4">
             <h4 className="card-title">
-              <Title TitleName={"Work Experience"} Titleclass={"text-center text-danger mb-4"} />
+              <Title TitleName={"Work Experience"} Titleclass={"text-center"} />
             </h4>
             <form action="">
               <table className="table">
@@ -167,7 +158,6 @@ const WorkExperience = () => {
                   type={"button"}
                   ButtonName={"Next"}
                   ButtonClassName={"btn-primary"}
-                  // disabled={!isFormComplete} 
                   onClick={() => {
                     navigate("/SkillsAndQualifications");
                     dispatch(update(formData));

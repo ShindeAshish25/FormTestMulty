@@ -1,38 +1,29 @@
 import Button from "../components/Button";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Title from "../components/Title";
 import InputField from "../components/InputField";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { update } from "../Redux/FormData";
 
 const SkillsAndQualifications = () => {
   const [inputValue, setInputValue] = useState("");
   const [items, setItems] = useState([]);
-  const [formData, setFormData] = useState({});
-  const oldData = useSelector((state) => state.counter.value);
+ 
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let arr = [];
 
-  useEffect(() => {
-    setFormData(oldData);
-  }, [oldData]);
-
-  useEffect(() => {
-    setFormData((prev) => ({ ...prev, skills: [...items] }));
-  }, [items]);
-
   // Handler for adding the item
   const handleAddItem = (e) => {
     e.preventDefault();
+    console.log(items, "clicked");
     if (inputValue.trim() === "") return;
     arr.push(inputValue);
     setInputValue("");
     setItems((prev) => [...prev, ...arr]);
   };
-  console.log("=====>", formData, items);
 
   // Handler for removing an item
   const handleRemoveItem = (index) => {
@@ -43,16 +34,16 @@ const SkillsAndQualifications = () => {
     setInputValue(e.target.value);
   };
 
-
+ 
   return (
     <>
       <div className="d-flex justify-content-center align-items-center h100 w100">
         <div className="card w-50 mb-3">
-          <div className="card-body p-4 shadow">
+          <div className="card-body p-4">
             <h4 className="card-title">
               <Title
                 TitleName={"Skills And Qualifications"}
-                Titleclass={"text-center text-danger mb-4"}
+                Titleclass={"text-center"}
               />
             </h4>
             <form action="">
@@ -62,15 +53,11 @@ const SkillsAndQualifications = () => {
                   InputPlaceholder="Add Skill"
                   value={inputValue}
                   InputClassName={"me-3 "}
-                  onChange={(e) => {
-                    InputValues(e);
-                  }}
+                  onChange={(e) => {InputValues(e); }}
                 />
 
                 <Button
-                  onClick={(e) => {
-                    handleAddItem(e);
-                  }}
+                  onClick={(e) => handleAddItem(e)}
                   type={"button"}
                   ButtonName={"Add"}
                   ButtonClassName={"btn-primary "}
@@ -101,9 +88,8 @@ const SkillsAndQualifications = () => {
                   type={"button"}
                   ButtonName={"Next"}
                   ButtonClassName={"btn-primary"}
-                  onClick={() => {
-                    navigate("/AdditionalInformation");
-                    dispatch(update(formData));
+                  onClick={() => {navigate("/AdditionalInformation");
+                    dispatch(update(items))
                   }}
                 />
               </div>

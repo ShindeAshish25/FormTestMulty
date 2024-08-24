@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
@@ -8,7 +8,6 @@ import { update } from "../Redux/FormData";
 
 const PersonalInformation = () => {
   const navigate = useNavigate();
-  const [isFormComplete, setIsFormComplete] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,13 +22,6 @@ const PersonalInformation = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
     console.log(e.target.name, e.target.value);
   };
-
-  useEffect(() => { 
-    const { name, email, phone, address } = formData;
-    setIsFormComplete(name && email && phone && address);
-  }, [formData]);
-
-
   console.log(formData);
   return (
     <div className="d-flex justify-content-center align-items-center h100 w100">
@@ -38,7 +30,7 @@ const PersonalInformation = () => {
           <h4 className="card-title">
             <Title
               TitleName={"Personal Information"}
-              Titleclass={"text-center text-danger mb-4"}
+              Titleclass={"text-center"}
             />
           </h4>
           <form action="">
@@ -91,7 +83,6 @@ const PersonalInformation = () => {
                 }}
                 ButtonName={"Next"}
                 ButtonClassName={"btn-primary"}
-                disabled={!isFormComplete} 
               />
             </div>
           </form>

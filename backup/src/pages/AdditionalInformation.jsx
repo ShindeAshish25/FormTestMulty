@@ -1,22 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "../components/Button";
 import Title from "../components/Title";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { update } from "../Redux/FormData";
-import Swal from "sweetalert2";
 
 const AdditionalInformation = () => {
   const [selectedfile, SetSelectedFile] = useState([]);
   const [Files, SetFiles] = useState([]);
-  const oldData = useSelector((state) => state.counter.value);
-  const [formData, setFormData] = useState({});
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-    setFormData(oldData);
-  }, [oldData]);
 
   const filesizes = (bytes, decimals = 2) => {
     if (bytes === 0) return "0 Bytes";
@@ -70,21 +61,17 @@ const AdditionalInformation = () => {
     // form reset on submit
     e.target.reset();
     if (selectedfile.length > 0) {
-      setFormData((prev) => ({ ...prev, file: selectedfile[0] }));
       for (let index = 0; index < selectedfile.length; index++) {
         SetFiles((preValue) => {
           return [...preValue, selectedfile[index]];
         });
       }
       SetSelectedFile([]);
-    } else { 
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Please select file..!", 
-      });
+    } else {
+      alert("Please select file");
     }
   };
+
   const DeleteFile = async (id) => {
     if (window.confirm("Are you sure you want to delete this Image?")) {
       const result = Files.filter((data) => data.id !== id);
@@ -96,12 +83,12 @@ const AdditionalInformation = () => {
   return (
     <>
       <div className="fileupload-view d-flex justify-content-center align-items-center h100 w100">
-        <div className="card w-50 mt-5 shadow">
+        <div className="card w-50 mt-5">
           <div className="card-body p-4">
             <h4 className="card-title">
               <Title
                 TitleName={"Additional Information"}
-                Titleclass={"text-center text-danger mb-4"}
+                Titleclass={"text-center"}
               />
             </h4>
 
@@ -194,10 +181,7 @@ const AdditionalInformation = () => {
                 type={"button"}
                 ButtonName={"Next"}
                 ButtonClassName={"btn-primary"}
-                onClick={() => {
-                  navigate("/Review");
-                  dispatch(update(formData));
-                }}
+                onClick={() => navigate("/Review")}
               />
             </div>
           </div>
